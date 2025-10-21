@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Independent Contractor Agreement - Ideadocks LLC</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+      padding: 40px;
+      color: #333;
+    }
+    .contract {
+      background: #fff;
+      padding: 30px;
+      max-width: 800px;
+      margin: auto;
+      border-radius: 8px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
+    h1 {
+      text-align: center;
+      font-size: 24px;
+    }
+    .section {
+      margin-bottom: 20px;
+    }
+    label {
+      font-weight: bold;
+      display: block;
+      margin-top: 10px;
+    }
+    input[type="text"], input[type="email"], input[type="tel"], input[type="date"] {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    textarea {
+      width: 100%;
+      height: 100px;
+      padding: 8px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-family: Arial, sans-serif;
+    }
+    .checkbox {
+      margin-top: 10px;
+    }
+    .button {
+      text-align: center;
+      margin-top: 30px;
+    }
+    button {
+      padding: 12px 24px;
+      font-size: 16px;
+      border: none;
+      background-color: #007BFF;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    .notice {
+      font-size: 0.9em;
+      color: #777;
+      margin-top: 30px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="contract">
+    <h1>Independent Contractor Agreement</h1>
+
+    <div class="section">
+      <p>This Independent Contractor Agreement ("Agreement") is made between <strong>Ideadocks LLC</strong>, located at 236 W 30TH ST RM 1401, New York, USA ("Company"), and the individual named below ("Contractor").</p>
+
+      <p><strong>Scope of Work:</strong> The Contractor agrees to perform e-commerce product listing and optimization tasks on platforms such as Amazon, eBay, Walmart.com, Shopify, and Etsy. The Contractor must log in to the Company platform daily between 10:00 AM and 11:00 PM EST to complete tasks accurately and on time.</p>
+
+      <p><strong>Compensation:</strong> Contractor will receive a guaranteed minimum of $45 per day upon successful task completion. Bonus opportunities are available for special orders. Payments will be made on the 5th, 15th, and 30th of each month via PayPal, Cash App, Venmo, or other agreed methods. All commissions have already been taxed at the platform level. A Form 1099 will be issued annually if applicable.</p>
+
+      <p><strong>Independent Status:</strong> Contractor acknowledges they are not an employee of Ideadocks LLC, and are responsible for their own taxes and benefits.</p>
+
+      <p><strong>Confidentiality:</strong> Contractor agrees to maintain strict confidentiality of all company and client information.</p>
+
+      <p><strong>Termination:</strong> This Agreement is effective upon signature and continues until terminated by either party with notice.</p>
+
+      <p><strong>Governing Law:</strong> This Agreement shall be governed by the laws of the State of New York, USA.</p>
+    </div>
+
+    <div class="section">
+      <label for="fullName">Full Name:</label>
+      <input type="text" id="fullName" placeholder="Enter your full legal name" />
+
+      <label for="email">Email Address:</label>
+      <input type="email" id="email" placeholder="Enter your email" />
+
+      <label for="phone">Phone Number:</label>
+      <input type="tel" id="phone" placeholder="Enter your phone number" />
+
+      <label for="date">Date:</label>
+      <input type="date" id="date" />
+
+      <label for="signature">Electronic Signature:</label>
+      <input type="text" id="signature" placeholder="Type your full name as signature" />
+
+      <div class="checkbox">
+        <input type="checkbox" id="agree" />
+        <label for="agree">I agree to the terms and conditions of this agreement.</label>
+      </div>
+    </div>
+
+    <div class="button">
+      <button onclick="confirmAgreement()">Confirm Signature</button>
+    </div>
+
+    <div class="notice" id="confirmation"></div>
+  </div>
+
+  <script>
+    function confirmAgreement() {
+      const name = document.getElementById('fullName').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const date = document.getElementById('date').value.trim();
+      const signature = document.getElementById('signature').value.trim();
+      const agree = document.getElementById('agree').checked;
+
+      if (!name || !email || !phone || !date || !signature || !agree) {
+        alert("Please complete all fields and agree to the terms.");
+        return;
+      }
+
+      document.getElementById('confirmation').innerHTML = `✅ Thank you, ${name}. Your agreement has been recorded. Please save or screenshot this page for your records.`;
+    }
+  </script>
+</body>
+</html>
