@@ -16,37 +16,35 @@
       max-width: 800px;
       margin: auto;
       border-radius: 8px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
     h1 {
       text-align: center;
-      font-size: 24px;
+      font-size: 22px;
     }
     .section {
       margin-bottom: 20px;
     }
     label {
       font-weight: bold;
-      display: block;
       margin-top: 10px;
+      display: block;
     }
-    input[type="text"], input[type="email"], input[type="tel"], input[type="number"], input[type="date"] {
+    input, textarea {
       width: 100%;
       padding: 8px;
       margin-top: 5px;
       border: 1px solid #ccc;
       border-radius: 4px;
-      box-sizing: border-box;
+      font-family: inherit;
     }
-    textarea {
-      width: 100%;
-      height: 100px;
-      padding: 8px;
-      margin-top: 5px;
+    #signature-pad {
       border: 1px solid #ccc;
       border-radius: 4px;
-      font-family: Arial, sans-serif;
-      box-sizing: border-box;
+      width: 100%;
+      height: 150px;
+      margin-top: 5px;
+      touch-action: none;
     }
     .checkbox {
       margin-top: 10px;
@@ -56,12 +54,12 @@
       margin-top: 30px;
     }
     button {
-      padding: 12px 24px;
-      font-size: 16px;
+      padding: 10px 20px;
+      font-size: 15px;
       border: none;
       background-color: #007BFF;
       color: white;
-      border-radius: 5px;
+      border-radius: 4px;
       cursor: pointer;
       margin: 5px;
     }
@@ -71,17 +69,8 @@
     .notice {
       font-size: 0.9em;
       color: #777;
-      margin-top: 30px;
+      margin-top: 20px;
       text-align: center;
-    }
-    /* 签名画布样式 */
-    #signature-pad {
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      width: 100%;
-      height: 150px;
-      margin-top: 5px;
-      touch-action: none;
     }
   </style>
 </head>
@@ -90,19 +79,21 @@
     <h1>Independent Contractor Agreement</h1>
 
     <div class="section">
-      <p>This Independent Contractor Agreement ("Agreement") is made between <strong>Ideadocks LLC</strong>, located at 236 W 30TH ST RM 1401, New York, USA ("Company"), and the individual named below ("Contractor").</p>
+      <p>This Independent Contractor Agreement (“Agreement”) is entered into and made effective as of the date set forth below (“Effective Date”), by and between <strong>Ideadocks LLC</strong>, a company organized and existing under the laws of the State of New York, with its principal place of business at 236 W 30th St RM 1401, New York, NY, USA (hereinafter referred to as the “Company”), and the undersigned individual (hereinafter referred to as the “Contractor”).</p>
 
-      <p><strong>Scope of Work:</strong> The Contractor agrees to perform e-commerce product listing and optimization tasks on platforms such as Amazon, eBay, Walmart.com, Shopify, and Etsy. The Contractor must log in to the Company platform daily between 10:00 AM and 11:00 PM EST to complete tasks accurately and on time.</p>
+      <p><strong>1. Scope of Work:</strong> Contractor agrees to provide e-commerce services including, but not limited to, product listing, optimization, and account support across various platforms such as Amazon, eBay, Walmart.com, Shopify, and Etsy. Contractor shall access the Company’s proprietary platform and perform assigned tasks on a daily basis, during the hours of 10:00 AM to 11:00 PM Eastern Standard Time (EST), and shall ensure timely and accurate task completion in accordance with Company standards.</p>
 
-      <p><strong>Compensation:</strong> Contractor will receive a guaranteed minimum of $45 per day, which represents the fixed minimum profit from brand partners. In addition, the platform guarantees fixed payments based on duration of work: $900 for 5 days, $1,500 for 15 days, and $3,000 for 30 days. Bonus opportunities are available for special orders. Payments will be made on the 5th, 15th, and 30th of each month via PayPal, Cash App, Venmo, or other agreed methods. All commissions have already been taxed at the platform level. A Form 1099 will be issued annually if applicable.</p>
+      <p><strong>2. Compensation:</strong> Contractor shall receive a guaranteed minimum daily compensation of $45 USD, representing fixed minimum profit participation from Company-affiliated brand partners. Additional guaranteed compensation shall be provided as follows: $900 for five (5) days of work, $1,500 for fifteen (15) days, and $3,000 for thirty (30) days. The Company may, at its sole discretion, award performance-based bonuses for special projects or high-priority tasks. Payments shall be disbursed on the 5th, 15th, and 30th of each month via PayPal, Cash App, Venmo, or another mutually agreed-upon payment method. Contractor acknowledges and agrees that all applicable taxes have been accounted for at the platform level. An IRS Form 1099-MISC may be issued annually if required under U.S. federal tax law.</p>
 
-      <p><strong>Independent Status:</strong> Contractor acknowledges they are not an employee of Ideadocks LLC, and are responsible for their own taxes and benefits.</p>
+      <p><strong>3. Independent Contractor Status:</strong> Contractor is engaged as an independent contractor and not as an employee, agent, joint venturer, or partner of the Company. Contractor shall be solely responsible for all taxes, withholdings, insurance, and any other obligations imposed by law with respect to the compensation received under this Agreement.</p>
 
-      <p><strong>Confidentiality:</strong> Contractor agrees to maintain strict confidentiality of all company and client information.</p>
+      <p><strong>4. Confidentiality:</strong> Contractor agrees to maintain the confidentiality of all proprietary, confidential, or trade secret information of the Company or its clients, and shall not disclose or use such information except as authorized and required to perform services under this Agreement.</p>
 
-      <p><strong>Termination:</strong> This Agreement is effective upon signature and continues until terminated by either party with notice.</p>
+      <p><strong>5. Term and Termination:</strong> This Agreement shall commence on the Effective Date and shall continue in full force and effect unless and until terminated by either party upon written notice. The Company may terminate this Agreement at any time, with or without cause, upon written or electronic notice to the Contractor.</p>
 
-      <p><strong>Governing Law:</strong> This Agreement shall be governed by the laws of the State of New York, USA.</p>
+      <p><strong>6. Governing Law:</strong> This Agreement shall be governed by and construed in accordance with the laws of the State of New York, without regard to conflict of law principles. Any legal proceedings arising out of or related to this Agreement shall be subject to the exclusive jurisdiction of the courts located in New York County, New York.</p>
+
+      <p><strong>7. Entire Agreement:</strong> This Agreement constitutes the entire understanding between the parties and supersedes all prior agreements, understandings, or representations, whether oral or written. This Agreement may only be modified in writing, signed by both parties.</p>
     </div>
 
     <div class="section">
@@ -122,17 +113,15 @@
       <input type="text" id="recentJob" placeholder="Your most recent job" />
 
       <label for="date">Date:</label>
-      <input type="text" id="date" placeholder="MM/DD/YYYY" />
+      <input type="date" id="date" />
 
-      <label for="signature-pad">Signature (please sign below):</label>
+      <label for="signature-pad">Signature:</label>
       <canvas id="signature-pad"></canvas>
-      <div>
-        <button type="button" onclick="clearSignature()">Clear Signature</button>
-      </div>
+      <button type="button" onclick="clearSignature()">Clear Signature</button>
 
       <div class="checkbox">
         <input type="checkbox" id="agree" />
-        <label for="agree">I agree to the terms and conditions of this agreement.</label>
+        <label for="agree">I agree to the terms and conditions.</label>
       </div>
     </div>
 
@@ -143,116 +132,94 @@
     <div class="notice" id="confirmation"></div>
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
   <script>
-    flatpickr("#date", {
-      dateFormat: "m/d/Y"
-    });
-
-    // 签名画布代码
     const canvas = document.getElementById('signature-pad');
     const ctx = canvas.getContext('2d');
 
-    // 调整 canvas 大小适配设备像素比，防止模糊
     function resizeCanvas() {
-      const ratio = Math.max(window.devicePixelRatio || 1, 1);
+      const ratio = window.devicePixelRatio || 1;
       canvas.width = canvas.offsetWidth * ratio;
       canvas.height = canvas.offsetHeight * ratio;
-      canvas.getContext("2d").scale(ratio, ratio);
+      ctx.scale(ratio, ratio);
       clearSignature();
     }
     window.addEventListener('resize', resizeCanvas);
     resizeCanvas();
 
     let drawing = false;
-    let lastX = 0;
-    let lastY = 0;
+    let lastX = 0, lastY = 0;
 
-    function startDrawing(e) {
-      drawing = true;
-      [lastX, lastY] = getPos(e);
+    function getPos(e) {
+      const rect = canvas.getBoundingClientRect();
+      if (e.touches) {
+        return [e.touches[0].clientX - rect.left, e.touches[0].clientY - rect.top];
+      }
+      return [e.offsetX, e.offsetY];
     }
 
-    function stopDrawing() {
-      drawing = false;
+    function start(e) {
+      drawing = true;
+      [lastX, lastY] = getPos(e);
     }
 
     function draw(e) {
       if (!drawing) return;
       const [x, y] = getPos(e);
-      ctx.strokeStyle = '#000';
-      ctx.lineWidth = 2;
-      ctx.lineCap = 'round';
-
       ctx.beginPath();
       ctx.moveTo(lastX, lastY);
       ctx.lineTo(x, y);
+      ctx.strokeStyle = '#000';
+      ctx.lineWidth = 2;
+      ctx.lineCap = 'round';
       ctx.stroke();
-
       [lastX, lastY] = [x, y];
     }
 
-    function getPos(e) {
-      if (e.touches) {
-        const rect = canvas.getBoundingClientRect();
-        return [
-          e.touches[0].clientX - rect.left,
-          e.touches[0].clientY - rect.top
-        ];
-      } else {
-        return [e.offsetX, e.offsetY];
-      }
+    function stop() {
+      drawing = false;
     }
 
-    canvas.addEventListener('mousedown', startDrawing);
-    canvas.addEventListener('mouseup', stopDrawing);
-    canvas.addEventListener('mouseout', stopDrawing);
+    canvas.addEventListener('mousedown', start);
     canvas.addEventListener('mousemove', draw);
-
-    canvas.addEventListener('touchstart', startDrawing);
-    canvas.addEventListener('touchend', stopDrawing);
-    canvas.addEventListener('touchcancel', stopDrawing);
+    canvas.addEventListener('mouseup', stop);
+    canvas.addEventListener('mouseout', stop);
+    canvas.addEventListener('touchstart', start);
     canvas.addEventListener('touchmove', draw);
+    canvas.addEventListener('touchend', stop);
 
     function clearSignature() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
     }
 
-    // 验证表单并确认签名
+    function isCanvasBlank(c) {
+      const blank = document.createElement('canvas');
+      blank.width = c.width;
+      blank.height = c.height;
+      return c.toDataURL() === blank.toDataURL();
+    }
+
     function confirmAgreement() {
       const name = document.getElementById('fullName').value.trim();
       const age = document.getElementById('age').value.trim();
       const phone = document.getElementById('phone').value.trim();
       const address = document.getElementById('address').value.trim();
-      const recentJob = document.getElementById('recentJob').value.trim();
+      const job = document.getElementById('recentJob').value.trim();
       const date = document.getElementById('date').value.trim();
-      const agree = document.getElementById('agree').checked;
-
-      // 判断签名是否为空（canvas 是否有内容）
+      const agreed = document.getElementById('agree').checked;
       const blank = isCanvasBlank(canvas);
 
-      if (!name || !age || !phone || !address || !recentJob || !date || !agree) {
+      if (!name || !age || !phone || !address || !job || !date || !agreed) {
         alert("Please complete all fields and agree to the terms.");
         return;
       }
       if (blank) {
-        alert("Please provide your handwritten signature.");
+        alert("Please provide your signature.");
         return;
       }
 
       document.getElementById('confirmation').innerHTML =
-        `✅ Thank you, ${name}. Your agreement has been recorded. Please save or screenshot this page for your records.`;
-    }
-
-    // 检测 canvas 是否为空（无签名）
-    function isCanvasBlank(c) {
-      const blank = document.createElement('canvas');
-      blank.width = c.width;
-      blank.height = c.height;
-
-      return c.toDataURL() === blank.toDataURL();
+        `✅ Thank you, ${name}. Your agreement has been recorded.`;
     }
   </script>
 </body>
 </html>
-
