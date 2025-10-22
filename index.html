@@ -112,8 +112,15 @@
       <label for="recentJob">Recent Employment:</label>
       <input type="text" id="recentJob" placeholder="Your most recent job" />
 
-      <label for="date">Date:</label>
-      <input type="date" id="date" />
+     <label for="date">Date:</label>
+<input type="text" id="date" placeholder="MM/DD/YYYY" />
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script>
+  flatpickr("#date", {
+    dateFormat: "m/d/Y"
+  });
+</script>
+
 
       <label for="signature-pad">Signature:</label>
       <canvas id="signature-pad"></canvas>
