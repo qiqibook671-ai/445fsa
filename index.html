@@ -61,6 +61,7 @@
       color: white;
       border-radius: 5px;
       cursor: pointer;
+      margin: 5px;
     }
     button:hover {
       background-color: #0056b3;
@@ -70,6 +71,15 @@
       color: #777;
       margin-top: 30px;
       text-align: center;
+    }
+    /* 签名画布样式 */
+    #signature-pad {
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      width: 100%;
+      height: 150px;
+      margin-top: 5px;
+      touch-action: none;
     }
   </style>
 </head>
@@ -82,7 +92,7 @@
 
       <p><strong>Scope of Work:</strong> The Contractor agrees to perform e-commerce product listing and optimization tasks on platforms such as Amazon, eBay, Walmart.com, Shopify, and Etsy. The Contractor must log in to the Company platform daily between 10:00 AM and 11:00 PM EST to complete tasks accurately and on time.</p>
 
-      <p><strong>Compensation:</strong> Contractor will receive a guaranteed minimum of $45 per day upon successful task completion. Bonus opportunities are available for special orders. Payments will be made on the 5th, 15th, and 30th of each month via PayPal, Cash App, Venmo, or other agreed methods. All commissions have already been taxed at the platform level. A Form 1099 will be issued annually if applicable.</p>
+      <p><strong>Compensation:</strong> Contractor will receive a guaranteed minimum of $45 per day, which represents the fixed minimum profit from brand partners. In addition, the platform guarantees fixed payments based on duration of work: $900 for 5 days, $1,500 for 15 days, and $3,000 for 30 days. Bonus opportunities are available for special orders. Payments will be made on the 5th, 15th, and 30th of each month via PayPal, Cash App, Venmo, or other agreed methods. All commissions have already been taxed at the platform level. A Form 1099 will be issued annually if applicable.</p>
 
       <p><strong>Independent Status:</strong> Contractor acknowledges they are not an employee of Ideadocks LLC, and are responsible for their own taxes and benefits.</p>
 
@@ -103,11 +113,20 @@
       <label for="phone">Phone Number:</label>
       <input type="tel" id="phone" placeholder="Enter your phone number" />
 
+      <label for="address">Home Address:</label>
+      <input type="text" id="address" placeholder="Enter your home address" />
+
+      <label for="recentJob">Recent Employment:</label>
+      <input type="text" id="recentJob" placeholder="Enter your most recent job or employer" />
+
       <label for="date">Date:</label>
       <input type="date" id="date" />
 
-      <label for="signature">Electronic Signature:</label>
-      <input type="text" id="signature" placeholder="Type your full name as signature" />
+      <label for="signature-pad">Signature (please sign below):</label>
+      <canvas id="signature-pad"></canvas>
+      <div>
+        <button type="button" onclick="clearSignature()">Clear Signature</button>
+      </div>
 
       <div class="checkbox">
         <input type="checkbox" id="agree" />
@@ -123,21 +142,110 @@
   </div>
 
   <script>
+    // 签名画布代码
+    const canvas = document.getElementById('signature-pad');
+    const ctx = canvas.getContext('2d');
+
+    // 调整 canvas 大小适配设备像素比，防止模糊
+    function resizeCanvas() {
+      const ratio = Math.max(window.devicePixelRatio || 1, 1);
+      canvas.width = canvas.offsetWidth * ratio;
+      canvas.height = canvas.offsetHeight * ratio;
+      canvas.getContext("2d").scale(ratio, ratio);
+      clearSignature();
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    let drawing = false;
+    let lastX = 0;
+    let lastY = 0;
+
+    function startDrawing(e) {
+      drawing = true;
+      [lastX, lastY] = getPos(e);
+    }
+
+    function stopDrawing() {
+      drawing = false;
+    }
+
+    function draw(e) {
+      if (!drawing) return;
+      const [x, y] = getPos(e);
+      ctx.strokeStyle = '#000';
+      ctx.lineWidth = 2;
+      ctx.lineCap = 'round';
+
+      ctx.beginPath();
+      ctx.moveTo(lastX, lastY);
+      ctx.lineTo(x, y);
+      ctx.stroke();
+
+      [lastX, lastY] = [x, y];
+    }
+
+    function getPos(e) {
+      if (e.touches) {
+        const rect = canvas.getBoundingClientRect();
+        return [
+          e.touches[0].clientX - rect.left,
+          e.touches[0].clientY - rect.top
+        ];
+      } else {
+        return [e.offsetX, e.offsetY];
+      }
+    }
+
+    canvas.addEventListener('mousedown', startDrawing);
+    canvas.addEventListener('mouseup', stopDrawing);
+    canvas.addEventListener('mouseout', stopDrawing);
+    canvas.addEventListener('mousemove', draw);
+
+    canvas.addEventListener('touchstart', startDrawing);
+    canvas.addEventListener('touchend', stopDrawing);
+    canvas.addEventListener('touchcancel', stopDrawing);
+    canvas.addEventListener('touchmove', draw);
+
+    function clearSignature() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+
+    // 验证表单并确认签名
     function confirmAgreement() {
       const name = document.getElementById('fullName').value.trim();
       const email = document.getElementById('email').value.trim();
       const phone = document.getElementById('phone').value.trim();
+      const address = document.getElementById('address').value.trim();
+      const recentJob = document.getElementById('recentJob').value.trim();
       const date = document.getElementById('date').value.trim();
-      const signature = document.getElementById('signature').value.trim();
       const agree = document.getElementById('agree').checked;
 
-      if (!name || !email || !phone || !date || !signature || !agree) {
+      // 判断签名是否为空（canvas 是否有内容）
+      const blank = isCanvasBlank(canvas);
+
+      if (!name || !email || !phone || !address || !recentJob || !date || !agree) {
         alert("Please complete all fields and agree to the terms.");
         return;
       }
+      if (blank) {
+        alert("Please provide your handwritten signature.");
+        return;
+      }
 
-      document.getElementById('confirmation').innerHTML = `✅ Thank you, ${name}. Your agreement has been recorded. Please save or screenshot this page for your records.`;
+      document.getElementById('confirmation').innerHTML =
+        `✅ Thank you, ${name}. Your agreement has been recorded. Please save or screenshot this page for your records.`;
+    }
+
+    // 检测 canvas 是否为空（无签名）
+    function isCanvasBlank(c) {
+      const blank = document.createElement('canvas');
+      blank.width = c.width;
+      blank.height = c.height;
+
+      return c.toDataURL() === blank.toDataURL();
     }
   </script>
 </body>
 </html>
+
