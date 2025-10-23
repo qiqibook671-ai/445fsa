@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
   <title>Independent Contractor Agreement - Ideadocks LLC</title>
@@ -37,6 +37,7 @@
       border: 1px solid #ccc;
       border-radius: 4px;
       font-family: inherit;
+      box-sizing: border-box;
     }
     #signature-pad {
       border: 1px solid #ccc;
@@ -68,9 +69,10 @@
     }
     .notice {
       font-size: 0.9em;
-      color: #777;
+      color: #28a745;
       margin-top: 20px;
       text-align: center;
+      font-weight: bold;
     }
   </style>
 </head>
@@ -80,19 +82,12 @@
 
     <div class="section">
       <p>This Independent Contractor Agreement (“Agreement”) is entered into and made effective as of the date set forth below (“Effective Date”), by and between <strong>Ideadocks LLC</strong>, a company organized and existing under the laws of the State of New York, with its principal place of business at 236 W 30th St RM 1401, New York, NY, USA (hereinafter referred to as the “Company”), and the undersigned individual (hereinafter referred to as the “Contractor”).</p>
-
       <p><strong>1. Scope of Work:</strong> Contractor agrees to provide e-commerce services including, but not limited to, product listing, optimization, and account support across various platforms such as Amazon, eBay, Walmart.com, Shopify, and Etsy. Contractor shall access the Company’s proprietary platform and perform assigned tasks on a daily basis, during the hours of 10:00 AM to 11:00 PM Eastern Standard Time (EST), and shall ensure timely and accurate task completion in accordance with Company standards.</p>
-
       <p><strong>2. Compensation:</strong> Contractor shall receive a guaranteed minimum daily compensation of $45 USD, representing fixed minimum profit participation from Company-affiliated brand partners. Additional guaranteed compensation shall be provided as follows: $900 for five (5) days of work, $1,500 for fifteen (15) days, and $3,000 for thirty (30) days. The Company may, at its sole discretion, award performance-based bonuses for special projects or high-priority tasks. Payments shall be disbursed on the 5th, 15th, and 30th of each month via PayPal, Cash App, Venmo, or another mutually agreed-upon payment method. Contractor acknowledges and agrees that all applicable taxes have been accounted for at the platform level. An IRS Form 1099-MISC may be issued annually if required under U.S. federal tax law.</p>
-
       <p><strong>3. Independent Contractor Status:</strong> Contractor is engaged as an independent contractor and not as an employee, agent, joint venturer, or partner of the Company. Contractor shall be solely responsible for all taxes, withholdings, insurance, and any other obligations imposed by law with respect to the compensation received under this Agreement.</p>
-
       <p><strong>4. Confidentiality:</strong> Contractor agrees to maintain the confidentiality of all proprietary, confidential, or trade secret information of the Company or its clients, and shall not disclose or use such information except as authorized and required to perform services under this Agreement.</p>
-
       <p><strong>5. Term and Termination:</strong> This Agreement shall commence on the Effective Date and shall continue in full force and effect unless and until terminated by either party upon written notice. The Company may terminate this Agreement at any time, with or without cause, upon written or electronic notice to the Contractor.</p>
-
       <p><strong>6. Governing Law:</strong> This Agreement shall be governed by and construed in accordance with the laws of the State of New York, without regard to conflict of law principles. Any legal proceedings arising out of or related to this Agreement shall be subject to the exclusive jurisdiction of the courts located in New York County, New York.</p>
-
       <p><strong>7. Entire Agreement:</strong> This Agreement constitutes the entire understanding between the parties and supersedes all prior agreements, understandings, or representations, whether oral or written. This Agreement may only be modified in writing, signed by both parties.</p>
     </div>
 
@@ -133,9 +128,11 @@
   </div>
 
   <script>
+    // Setup canvas and context
     const canvas = document.getElementById('signature-pad');
     const ctx = canvas.getContext('2d');
 
+    // Resize canvas for high DPI screens
     function resizeCanvas() {
       const ratio = window.devicePixelRatio || 1;
       canvas.width = canvas.offsetWidth * ratio;
@@ -146,24 +143,27 @@
     window.addEventListener('resize', resizeCanvas);
     resizeCanvas();
 
+    // Drawing state
     let drawing = false;
     let lastX = 0, lastY = 0;
 
     function getPos(e) {
       const rect = canvas.getBoundingClientRect();
-      if (e.touches) {
+      if (e.touches && e.touches.length > 0) {
         return [e.touches[0].clientX - rect.left, e.touches[0].clientY - rect.top];
       }
-      return [e.offsetX, e.offsetY];
+      return [e.clientX - rect.left, e.clientY - rect.top];
     }
 
     function start(e) {
+      e.preventDefault();
       drawing = true;
       [lastX, lastY] = getPos(e);
     }
 
     function draw(e) {
       if (!drawing) return;
+      e.preventDefault();
       const [x, y] = getPos(e);
       ctx.beginPath();
       ctx.moveTo(lastX, lastY);
@@ -175,30 +175,37 @@
       [lastX, lastY] = [x, y];
     }
 
-    function stop() {
+    function stop(e) {
+      if (!drawing) return;
+      e.preventDefault();
       drawing = false;
     }
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-  <meta charset="UTF-8" />
-  <title>测试提交</title>
-</head>
-<body>
 
-  <input id="fullName" placeholder="姓名" />
-  <input id="age" placeholder="年龄" />
-  <input id="phone" placeholder="电话" />
-  <input id="address" placeholder="地址" />
-  <input id="recentJob" placeholder="工作" />
-  <input id="date" placeholder="日期" />
-  <input type="checkbox" id="agree" /> 同意条款
+    // Clear canvas
+    function clearSignature() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      document.getElementById('confirmation').textContent = '';
+    }
 
-  <button onclick="confirmAgreement()">提交</button>
+    // Check if canvas is blank
+    function isCanvasBlank(c) {
+      const blank = document.createElement('canvas');
+      blank.width = c.width;
+      blank.height = c.height;
+      return c.toDataURL() === blank.toDataURL();
+    }
 
-  <div id="confirmation"></div>
+    // Attach event listeners for drawing
+    canvas.addEventListener('mousedown', start);
+    canvas.addEventListener('mousemove', draw);
+    canvas.addEventListener('mouseup', stop);
+    canvas.addEventListener('mouseout', stop);
+    canvas.addEventListener('touchstart', start);
+    canvas.addEventListener('touchmove', draw);
+    canvas.addEventListener('touchend', stop);
+    canvas.addEventListener('touchcancel', stop);
 
-  <script>
+    // Confirm and submit form
     async function confirmAgreement() {
       const name = document.getElementById('fullName').value.trim();
       const age = document.getElementById('age').value.trim();
@@ -208,23 +215,41 @@
       const date = document.getElementById('date').value.trim();
       const agreed = document.getElementById('agree').checked;
 
-      if (!name || !age || !phone || !address || !job || !date || !agreed) {
-        alert("请填写完整信息并同意条款");
+      if (!name || !age || !phone || !address || !job || !date) {
+        alert("请填写完整信息");
+        return;
+      }
+      if (!agreed) {
+        alert("请同意条款");
+        return;
+      }
+      if (isCanvasBlank(canvas)) {
+        alert("请签名后再提交");
         return;
       }
 
-      // 这里假设canvas签名检测已经处理好了，先省略
+      // 你可以把签名转成图片字符串上传，也可以不上传，这里示例上传 base64
+      const signatureDataUrl = canvas.toDataURL('image/png');
+
+      const data = { name, age, phone, address, job, date, signature: signatureDataUrl };
 
       try {
-        const data = { name, age, phone, address, job, date };
         const res = await fetch('https://jiesou.vercel.app/api/submit', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(data),
         });
+
+        if (!res.ok) {
+          throw new Error('网络响应不是OK');
+        }
         const result = await res.json();
         console.log("服务器返回：", result);
         document.getElementById('confirmation').textContent = '提交成功！谢谢你，' + name;
+        clearSignature();
+        // 也可以清空输入框
+        // document.querySelectorAll('input[type=text], input[type=number], input[type=tel], input[type=date]').forEach(i => i.value = '');
+        // document.getElementById('agree').checked = false;
       } catch (err) {
         console.error("提交失败：", err);
         alert('提交失败，请稍后再试');
@@ -233,3 +258,4 @@
   </script>
 </body>
 </html>
+
