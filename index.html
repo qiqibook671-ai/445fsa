@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <title>Independent Contractor Agreement - Ideadocks LLC</title>
@@ -96,7 +96,7 @@
     <h1>Independent Contractor Agreement</h1>
 
     <div class="section contract">
-      <p>This Independent Contractor Agreement (“Agreement”) is entered into as of <strong>[Date]</strong>, by and between <strong>Ideadocks LLC</strong>, a New York limited liability company (“Company”), located at 236 W 30th St RM 1401, New York, NY, USA, and <strong>[Contractor Name]</strong> (“Contractor”), collectively referred to as the “Parties.”</p>
+      <p>This Independent Contractor Agreement (“Agreement”) is entered into as of <strong><span id="effectiveDateText"></span></strong>, by and between <strong>Ideadocks LLC</strong>, a New York limited liability company (“Company”), located at 236 W 30th St RM 1401, New York, NY, USA, and <strong><span id="contractorNameText"></span></strong> (“Contractor”), collectively referred to as the “Parties.”</p>
 
       <h2>1. Scope of Work</h2>
       <p>The Contractor agrees to perform e-commerce product listing and data upload services (“Services”) for the Company. This includes uploading product data and detail pages for brand partners such as Estée Lauder, Audemars Piguet, Armani, Ferragamo, and others to various online platforms including Amazon, eBay, Walmart.com, Shopify, and Etsy. The Contractor shall ensure all product information is accurate, error-free, and uploaded on schedule.</p>
@@ -140,29 +140,29 @@
 
     <div class="section">
       <label for="fullName">Full Name:</label>
-      <input type="text" id="fullName" placeholder="Enter your full legal name" />
+      <input type="text" id="fullName" placeholder="Enter your full legal name" required />
 
       <label for="age">Age:</label>
-      <input type="number" id="age" placeholder="Enter your age" min="0" max="120" />
+      <input type="number" id="age" placeholder="Enter your age" min="18" max="120" required />
 
       <label for="phone">Phone Number:</label>
-      <input type="tel" id="phone" placeholder="Enter your phone number" />
+      <input type="tel" id="phone" placeholder="Enter your phone number" required />
 
       <label for="address">Home Address:</label>
-      <input type="text" id="address" placeholder="Enter your home address" />
+      <input type="text" id="address" placeholder="Enter your home address" required />
 
-      <label for="recentJob">Recent Employment:</label>
-      <input type="text" id="recentJob" placeholder="Your most recent job" />
+      <label for="recentJob">Most Recent Employment:</label>
+      <input type="text" id="recentJob" placeholder="Your most recent job" required />
 
       <label for="date">Date:</label>
-      <input type="date" id="date" />
+      <input type="date" id="date" required />
 
       <label for="signature-pad">Signature:</label>
       <canvas id="signature-pad"></canvas>
       <button type="button" onclick="clearSignature()">Clear Signature</button>
 
       <div class="checkbox">
-        <input type="checkbox" id="agree" />
+        <input type="checkbox" id="agree" required />
         <label for="agree">I agree to the terms and conditions.</label>
       </div>
     </div>
@@ -256,18 +256,26 @@
       const blank = isCanvasBlank(canvas);
 
       if (!name || !age || !phone || !address || !job || !date || !agreed) {
-        alert("请填写完整信息并同意条款");
+        alert("Please fill out all fields and agree to the terms.");
         return;
       }
       if (blank) {
-        alert("请提供您的签名");
+        alert("Please provide your signature.");
         return;
       }
 
-      // 不上传了，直接提示成功和截图
+      // Update contract header with entered info
+      document.getElementById('effectiveDateText').textContent = new Date(date).toLocaleDateString('en-US');
+      document.getElementById('contractorNameText').textContent = name;
+
+      // Show confirmation message
       document.getElementById('confirmation').innerHTML =
-        `✅ 感谢您，${name}。您的协议已记录，请截图保存此页面以备后用。`;
+        `✅ Thank you, ${name}. Your agreement has been recorded. Please take a screenshot of this page for your records.`;
+
+      // Scroll to confirmation
+      document.getElementById('confirmation').scrollIntoView({ behavior: 'smooth' });
     }
   </script>
 </body>
 </html>
+
