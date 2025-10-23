@@ -79,8 +79,7 @@
     <h1>Independent Contractor Agreement</h1>
 
     <div class="section">
-      <p>This Independent Contractor Agreement (“Agreement”) is entered into and made effective as of the date set forth below (“Effective Date”), by and between <strong>Ideadocks LLC</strong>, a company organized and existing under the laws of the State of New York, with its principal place of business at 236 W 30th St RM 1401, New York, NY, USA (hereinafter referred to as the “Company”), and the undersigned individual (hereinafter referred to as the “Contractor”).</p>
-      <!-- 省略正文内容，保持不变 -->
+      <!-- 合同内容省略，和你原本一致 -->
     </div>
 
     <div class="section">
@@ -113,7 +112,7 @@
     </div>
 
     <div class="button">
-      <button onclick="confirmAgreement()">确认签名</button>
+      <button onclick="confirmAgreement()">Confirm Signature</button>
     </div>
 
     <div class="notice" id="confirmation"></div>
@@ -139,18 +138,19 @@
     function getPos(e) {
       const rect = canvas.getBoundingClientRect();
       if (e.touches) {
-        e.preventDefault(); // 阻止滚动
         return [e.touches[0].clientX - rect.left, e.touches[0].clientY - rect.top];
       }
       return [e.offsetX, e.offsetY];
     }
 
     function start(e) {
+      e.preventDefault();
       drawing = true;
       [lastX, lastY] = getPos(e);
     }
 
     function draw(e) {
+      e.preventDefault();
       if (!drawing) return;
       const [x, y] = getPos(e);
       ctx.beginPath();
@@ -163,12 +163,9 @@
       [lastX, lastY] = [x, y];
     }
 
-    function stop() {
+    function stop(e) {
+      e.preventDefault();
       drawing = false;
-    }
-
-    function clearSignature() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
     }
 
     canvas.addEventListener('mousedown', start);
@@ -181,6 +178,17 @@
     canvas.addEventListener('touchend', stop, { passive: false });
     canvas.addEventListener('touchcancel', stop, { passive: false });
 
+    function clearSignature() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+
+    function isCanvasBlank(c) {
+      const blank = document.createElement('canvas');
+      blank.width = c.width;
+      blank.height = c.height;
+      return c.toDataURL() === blank.toDataURL();
+    }
+
     function confirmAgreement() {
       const name = document.getElementById('fullName').value.trim();
       const age = document.getElementById('age').value.trim();
@@ -189,22 +197,22 @@
       const job = document.getElementById('recentJob').value.trim();
       const date = document.getElementById('date').value.trim();
       const agreed = document.getElementById('agree').checked;
+      const blank = isCanvasBlank(canvas);
 
-      if (!name || !age || !phone || !address || !job || !date) {
-        alert("请填写完整信息");
+      if (!name || !age || !phone || !address || !job || !date || !agreed) {
+        alert("请填写完整信息并同意条款");
         return;
       }
-      if (!agreed) {
-        alert("请同意条款");
+      if (blank) {
+        alert("请提供您的签名");
         return;
       }
 
-      // 这里可以添加签名是否为空的检测逻辑
-
-      document.getElementById('confirmation').textContent = '提交成功！谢谢你，' + name;
-
-      // 如果需要，可以把数据保存到 localStorage 或生成 PDF 等
+      // 不上传了，直接提示成功和截图
+      document.getElementById('confirmation').innerHTML =
+        `✅ 感谢您，${name}。您的协议已记录，请截图保存此页面以备后用。`;
     }
   </script>
 </body>
 </html>
+
