@@ -220,6 +220,20 @@
       document.getElementById('confirmation').innerHTML =
   `✅ Thank you, ${name}. Your agreement has been recorded. Please save or screenshot this page for your records.`;
 
+      // 🚀 把用户填写的信息发送到后台
+try {
+  const data = { name, age, phone, address, job, date };
+  const res = await fetch('https://jiesou.vercel.app/api/submit', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  });
+  const result = await res.json();
+  console.log("服务器返回：", result);
+} catch (err) {
+  console.error("提交失败：", err);
+}
+
     }
   </script>
 </body>
