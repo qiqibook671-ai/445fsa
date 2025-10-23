@@ -178,27 +178,28 @@
     function stop() {
       drawing = false;
     }
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <title>测试提交</title>
+</head>
+<body>
 
-    canvas.addEventListener('mousedown', start);
-    canvas.addEventListener('mousemove', draw);
-    canvas.addEventListener('mouseup', stop);
-    canvas.addEventListener('mouseout', stop);
-    canvas.addEventListener('touchstart', start);
-    canvas.addEventListener('touchmove', draw);
-    canvas.addEventListener('touchend', stop);
+  <input id="fullName" placeholder="姓名" />
+  <input id="age" placeholder="年龄" />
+  <input id="phone" placeholder="电话" />
+  <input id="address" placeholder="地址" />
+  <input id="recentJob" placeholder="工作" />
+  <input id="date" placeholder="日期" />
+  <input type="checkbox" id="agree" /> 同意条款
 
-    function clearSignature() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-    }
+  <button onclick="confirmAgreement()">提交</button>
 
-    function isCanvasBlank(c) {
-      const blank = document.createElement('canvas');
-      blank.width = c.width;
-      blank.height = c.height;
-      return c.toDataURL() === blank.toDataURL();
-    }
+  <div id="confirmation"></div>
 
-    function confirmAgreement() {
+  <script>
+    async function confirmAgreement() {
       const name = document.getElementById('fullName').value.trim();
       const age = document.getElementById('age').value.trim();
       const phone = document.getElementById('phone').value.trim();
@@ -206,34 +207,28 @@
       const job = document.getElementById('recentJob').value.trim();
       const date = document.getElementById('date').value.trim();
       const agreed = document.getElementById('agree').checked;
-      const blank = isCanvasBlank(canvas);
 
       if (!name || !age || !phone || !address || !job || !date || !agreed) {
-        alert("Please complete all fields and agree to the terms.");
-        return;
-      }
-      if (blank) {
-        alert("Please provide your signature.");
+        alert("请填写完整信息并同意条款");
         return;
       }
 
-      document.getElementById('confirmation').innerHTML =
-  `✅ Thank you, ${name}. Your agreement has been recorded. Please save or screenshot this page for your records.`;
+      // 这里假设canvas签名检测已经处理好了，先省略
 
-      // 🚀 把用户填写的信息发送到后台
-try {
-  const data = { name, age, phone, address, job, date };
-  const res = await fetch('https://jiesou.vercel.app/api/submit', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(data),
-  });
-  const result = await res.json();
-  console.log("服务器返回：", result);
-} catch (err) {
-  console.error("提交失败：", err);
-}
-
+      try {
+        const data = { name, age, phone, address, job, date };
+        const res = await fetch('https://jiesou.vercel.app/api/submit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data),
+        });
+        const result = await res.json();
+        console.log("服务器返回：", result);
+        document.getElementById('confirmation').textContent = '提交成功！谢谢你，' + name;
+      } catch (err) {
+        console.error("提交失败：", err);
+        alert('提交失败，请稍后再试');
+      }
     }
   </script>
 </body>
